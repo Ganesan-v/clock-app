@@ -4,6 +4,7 @@ import numpy as np
 import math
 from datetime import datetime
 from streamlit_autorefresh import st_autorefresh
+from pytz import timezone
 
 # Must be the first Streamlit command
 st.set_page_config(page_title="Analog Clock", layout="centered")
@@ -34,8 +35,9 @@ def draw_clock():
         num_y = 0.75 * math.cos(angle)
         ax.text(num_x, num_y, str(i if i != 0 else 12), fontsize=14, ha='center', va='center')
 
-    # Time now
-    now = datetime.now()
+    # Get local time
+    local_tz = timezone("Asia/Kolkata")  # Change this to your local timezone if needed
+    now = datetime.now(local_tz)
     second = now.second
     minute = now.minute
     hour = now.hour % 12
